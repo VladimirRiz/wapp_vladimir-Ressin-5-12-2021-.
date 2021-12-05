@@ -23,7 +23,7 @@ export const getFiveDaysFailed = () => {
 	};
 };
 
-export const getWeather = (id) => {
+export const getFiveDays = (id) => {
 	return async (dispatch) => {
 		try {
 			dispatch(setLoading(true));

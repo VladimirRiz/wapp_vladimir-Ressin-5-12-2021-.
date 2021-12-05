@@ -30,6 +30,7 @@ export const getWeather = (id) => {
 			const res = await axios.get(
 				`http://dataservice.accuweather.com/currentconditions/v1/${id}?apikey=LBgTiVVoX2iKME7y5oM44ywuEQGDjNwL`
 			);
+			console.log("weather", res.data);
 			dispatch(setLoading(false));
 			dispatch(setWeather(res.data));
 		} catch (err) {

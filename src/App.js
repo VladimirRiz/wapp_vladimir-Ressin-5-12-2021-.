@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Header from "./components/Header/index";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./components/Main/Main";
 import Favorites from "./components/Favorites";
-import axios from "axios";
 
 function App() {
 	// const [data, setData] = useState();
@@ -43,10 +42,11 @@ function App() {
 					<Route
 						element={
 							<Main
-								city={data[0].AdministrativeArea}
-								wText={weather[0].WeatherText}
-								temperature={weather[0].Temperature}
-								fiveDays={fiveDays.DailyForecasts}
+								weatherIcon={weather[0]?.WeatherIcon}
+								city={data[0]?.AdministrativeArea}
+								wText={weather[0]?.WeatherText}
+								temperature={weather[0]?.Temperature}
+								fiveDays={fiveDays?.DailyForecasts}
 							/>
 						}
 						path="/"

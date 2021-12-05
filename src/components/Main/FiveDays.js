@@ -8,7 +8,7 @@
 import "./five-days.scss";
 
 const FiveDays = ({ arr }) =>
-	arr.map((data, i) => {
+	arr?.map((data, i) => {
 		const date = new Date(data.Date).toLocaleDateString("en-En", {
 			weekday: "long",
 		});
