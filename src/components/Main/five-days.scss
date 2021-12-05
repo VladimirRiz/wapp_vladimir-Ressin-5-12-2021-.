@@ -1,0 +1,14 @@
+@import "../../sassStyles/variables";
+
+.card {
+	&-wrapper {
+		width: 100%;
+		max-width: 10rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		align-items: center;
+		background-color: $white;
+		padding: 1rem;
+	}
+}

@@ -1,0 +1,19 @@
+.wrapper {
+	background: red;
+	margin: 2rem;
+	padding: 1rem;
+	.section {
+		&-first {
+			display: flex;
+			justify-content: space-between;
+		}
+	}
+	.days {
+		margin-block: 2rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex: 1 1 20%;
+		flex-wrap: wrap;
+	}
+}

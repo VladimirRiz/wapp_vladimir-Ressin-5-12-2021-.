@@ -1,0 +1,26 @@
+@import "../../sassStyles/variables";
+
+.header {
+	&_wrapper {
+		margin: 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+}
+
+.nav {
+	display: flex;
+	gap: 1rem;
+	justify-content: space-between;
+	&_link {
+		color: white;
+		background-color: $blue;
+		padding: 0.5rem 1rem;
+		border-radius: 0.3rem;
+		text-decoration: none;
+		&.active {
+			background-color: rgba($blue, 0.5);
+		}
+	}
+}

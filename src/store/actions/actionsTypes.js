@@ -1,0 +1,11 @@
+export const GET_DATA = "GET_DATA";
+export const SET_DATA = "SET_DATA";
+export const SET_LOADING = "SET_LOADING";
+export const GET_DATA_FAILED = "GET_DATA_FAILED";
+export const GET_WEATHER = "GET_WEATHER";
+export const SET_WEATHER = "SET_WEATHER";
+export const GET_WEATHER_FAILED = "GET_WEATHER_FAILED";
+export const GET_FIVE_DAYS = "GET_FIVE_DAYS";
+export const SET_FIVE_DAYS = "SET_FIVE_DAYS";
+export const GET_FIVE_DAYS_FAILED = "GET_FIVE_DAYS_FAILED";
+export const SET_FAVORITE = "SET_FAVORITE";
