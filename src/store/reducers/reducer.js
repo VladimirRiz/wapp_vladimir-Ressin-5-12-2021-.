@@ -268,7 +268,7 @@ const reducer = (state = initialState, action) => {
 		case actionTypes.SET_FAVORITE:
 			return {
 				...state,
-				favorites: [action.payload, ...state.favorites],
+				favorites: action.payload,
 			};
 		default:
 			return state;

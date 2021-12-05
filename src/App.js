@@ -34,7 +34,7 @@ function App() {
 		// }
 	}, []);
 
-	console.log(data);
+	// console.log(data);
 	return (
 		<BrowserRouter className="App">
 			<Header />

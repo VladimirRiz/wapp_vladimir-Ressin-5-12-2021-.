@@ -13,7 +13,7 @@ const FiveDays = ({ arr }) =>
 			weekday: "long",
 		});
 		return (
-			<div className="card-wrapper">
+			<div className="card-wrapper" key={date}>
 				<h3>{date.slice(0, 3)}</h3>
 				<p>
 					{data.Temperature.Minimum.Value}&deg;{" "}
