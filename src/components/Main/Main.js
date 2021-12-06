@@ -62,10 +62,19 @@ const Main = ({ weatherIcon, city, wText, temperature, fiveDays }) => {
 		dispatch(setFavorites(fav));
 	};
 
+	const changeTheme = () => {
+		const body = document.querySelector("body");
+		body.classList.toggle("dark");
+	};
+
 	return (
 		<div className="main">
-			<SearchBar />
-
+			<div className="wrapper-upper">
+				<SearchBar />
+				<Button variant="outlined" onClick={changeTheme}>
+					Change Theme
+				</Button>
+			</div>
 			<div className="wrapper">
 				{!error ? (
 					!loading ? (
