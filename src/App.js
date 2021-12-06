@@ -15,11 +15,8 @@ function App() {
 	const data = useSelector(({ data }) => data);
 	const weather = useSelector(({ weather }) => weather);
 	const fiveDays = useSelector(({ fiveDays }) => fiveDays);
-	const favorites = useSelector(({ favorites }) => favorites);
 
-	console.log(favorites);
-
-	// console.log(store);
+	console.log(weather[0]);
 
 	useEffect(() => {
 		// const load = async () => {

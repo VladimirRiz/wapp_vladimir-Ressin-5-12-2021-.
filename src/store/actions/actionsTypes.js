@@ -9,3 +9,4 @@ export const GET_FIVE_DAYS = "GET_FIVE_DAYS";
 export const SET_FIVE_DAYS = "SET_FIVE_DAYS";
 export const GET_FIVE_DAYS_FAILED = "GET_FIVE_DAYS_FAILED";
 export const SET_FAVORITE = "SET_FAVORITE";
+export const SET_DEGREES = "SET_DEGREES";

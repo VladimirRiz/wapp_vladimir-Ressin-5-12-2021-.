@@ -7,24 +7,22 @@ import TextField from "@mui/material/TextField";
 
 const SearchBar = () => {
 	const [text, setText] = useState(``);
-	const [id, setId] = useState("");
 	const dispatch = useDispatch();
-	const store = useSelector((state) => state);
-	const key = useSelector(({ data }) => data[0].Key);
+	const loading = useSelector(({ loading }) => loading);
+	const data = useSelector(({ data }) => data[0]);
 
-	useEffect(() => {
-		setId(key);
-	}, [key]);
-
-	const updateStore = async () => {
-		await dispatch(getData(text));
-		if (!store.loading && !store.error) {
-			await dispatch(getWeather(id));
-			await dispatch(getFiveDays(id));
-		}
+	const updateStore = () => {
+		dispatch(getData(text));
 	};
 
-	const update = async () => {};
+	// useEffect(() => {
+	// 	if (!loading) {
+	// 		dispatch(getWeather(data.Key));
+	// 		dispatch(getFiveDays(data.Key));
+	// 	}
+	// }, [data, loading]);
+
+	// const update = async () => {};
 
 	const onChange = ({ target }) => {
 		setText(target.value);
@@ -36,7 +34,7 @@ const SearchBar = () => {
 			onKeyDown={(e) => {
 				if (e.key === "Enter") {
 					updateStore();
-					update();
+					// update();
 				}
 			}}
 		/>

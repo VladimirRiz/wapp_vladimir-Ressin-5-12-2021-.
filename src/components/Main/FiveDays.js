@@ -1,11 +1,10 @@
-// const days = (num) => {
-//     switch(num){
-//         case 0:
-//             return:
-//     }
-// }
-
+import { useSelector } from "react-redux";
 import "./five-days.scss";
+
+const celsiusToFahrenheit = (celsius) => (celsius * 9) / 5 + 32;
+
+const fahrenheitToCelsius = (fahrenheit) =>
+	Math.floor(((fahrenheit - 32) * 5) / 9);
 
 const FiveDays = ({ arr }) =>
 	arr?.map((data, i) => {
@@ -16,7 +15,10 @@ const FiveDays = ({ arr }) =>
 			<div className="card-wrapper" key={date}>
 				<h3>{date.slice(0, 3)}</h3>
 				<p>
-					{data.Temperature.Minimum.Value}&deg;{" "}
+					{data.Temperature.Minimum.Unit !== "F"
+						? data.Temperature.Minimum.Value
+						: fahrenheitToCelsius(data.Temperature.Minimum.Value)}
+					&deg;
 					<small>{data.Temperature.Minimum.Unit}</small>
 				</p>
 			</div>

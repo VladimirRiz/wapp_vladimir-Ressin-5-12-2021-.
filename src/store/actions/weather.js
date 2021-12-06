@@ -1,10 +1,10 @@
 import * as actionTypes from "./actionsTypes";
 import axios from "axios";
 
-export const setWeather = (data) => {
+export const setWeather = (weather) => {
 	return {
 		type: actionTypes.SET_WEATHER,
-		weather: data,
+		weather: weather,
 		loading: false,
 	};
 };
@@ -26,12 +26,11 @@ export const getWeatherFailed = () => {
 export const getWeather = (id) => {
 	return async (dispatch) => {
 		try {
-			dispatch(setLoading(true));
+			// dispatch(setLoading(true));
 			const res = await axios.get(
-				`http://dataservice.accuweather.com/currentconditions/v1/${id}?apikey=LBgTiVVoX2iKME7y5oM44ywuEQGDjNwL`
+				`http://dataservice.accuweather.com/currentconditions/v1/${id}?apikey=68w4it9WucrjXCWCs5TApU3PtQNOf66n`
 			);
-			console.log("weather", res.data);
-			dispatch(setLoading(false));
+			// dispatch(setLoading(false));
 			dispatch(setWeather(res.data));
 		} catch (err) {
 			dispatch(setLoading(false));

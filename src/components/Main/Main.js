@@ -11,8 +11,11 @@ import SearchBar from "../SearchBar";
 const Main = ({ weatherIcon, city, wText, temperature, fiveDays }) => {
 	const [fav, setFav] = useState();
 	const [isFav, setIsFav] = useState(false);
+	const [w, setW] = useState(temperature);
+	const [f, setF] = useState(fiveDays);
 	const dispatch = useDispatch();
 	const favorites = useSelector(({ favorites }) => favorites);
+	const loading = useSelector(({ loading }) => loading);
 
 	useEffect(() => {
 		setFav(favorites);
@@ -20,6 +23,11 @@ const Main = ({ weatherIcon, city, wText, temperature, fiveDays }) => {
 			setIsFav(true);
 		}
 	}, [favorites, fav, city]);
+
+	useEffect(() => {
+		setW(temperature);
+		setF(fiveDays);
+	}, [temperature, fiveDays]);
 
 	const addToFavorite = () => {
 		if (fav.some((f) => f.city === city?.LocalizedName)) {
@@ -31,8 +39,8 @@ const Main = ({ weatherIcon, city, wText, temperature, fiveDays }) => {
 			fav.push({
 				city: city?.LocalizedName,
 				temperature: {
-					value: temperature.Metric.Value,
-					unit: temperature.Metric.Unit,
+					value: w.Metric.Value,
+					unit: w.Metric.Unit,
 				},
 				desc: wText,
 			});
@@ -44,34 +52,38 @@ const Main = ({ weatherIcon, city, wText, temperature, fiveDays }) => {
 		<div className="main">
 			<SearchBar />
 
-			<div className="wrapper">
-				<section className="section-first">
-					<div className="left">
-						<img
-							className="img"
-							src={`https://www.accuweather.com/images/weathericons/${weatherIcon}.svg`}
-							alt="weather Icon"
-						/>
-						<div>
-							<h1>{city?.LocalizedName}</h1>
-							<p>
-								{temperature?.Metric?.Value}&deg;
-								<small>{temperature?.Metric?.Unit}</small>
-							</p>
+			{!loading ? (
+				<div className="wrapper">
+					<section className="section-first">
+						<div className="left">
+							<img
+								className="img"
+								src={`https://www.accuweather.com/images/weathericons/7.svg`}
+								alt="weather Icon"
+							/>
+							<div>
+								<h1>{city?.LocalizedName}</h1>
+								<p>
+									{w?.Metric?.Value}&deg;
+									<small>{w?.Metric?.Unit}</small>
+								</p>
+							</div>
 						</div>
-					</div>
-					<div className="fav-wrapper">
-						<Favorite className={isFav ? "fav-icon" : ""} />
-						<Button onClick={addToFavorite}>Add to favorite</Button>
-					</div>
-				</section>
-				<section className="section-second">
-					<h3>{wText}</h3>
-				</section>
-				<section className="section-third">
-					<FiveDays arr={fiveDays} />
-				</section>
-			</div>
+						<div className="fav-wrapper">
+							<Favorite className={isFav ? "fav-icon" : ""} />
+							<Button onClick={addToFavorite}>Add to favorite</Button>
+						</div>
+					</section>
+					<section className="section-second">
+						<h3>{wText}</h3>
+					</section>
+					<section className="section-third">
+						<FiveDays arr={f} />
+					</section>
+				</div>
+			) : (
+				"Loading..."
+			)}
 		</div>
 	);
 };

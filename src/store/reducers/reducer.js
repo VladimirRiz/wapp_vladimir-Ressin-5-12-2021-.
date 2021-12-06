@@ -223,6 +223,7 @@ const initialState = {
 	loading: false,
 	error: false,
 	favorites: [],
+	degrees: "C",
 };
 
 const reducer = (state = initialState, action) => {
@@ -246,7 +247,7 @@ const reducer = (state = initialState, action) => {
 		case actionTypes.SET_WEATHER:
 			return {
 				...state,
-				weather: [action.data],
+				weather: action.weather,
 				error: false,
 			};
 		case actionTypes.GET_WEATHER_FAILED:
@@ -257,7 +258,7 @@ const reducer = (state = initialState, action) => {
 		case actionTypes.SET_FIVE_DAYS:
 			return {
 				...state,
-				fiveDays: [action.data],
+				fiveDays: action.fiveDays,
 				error: false,
 			};
 		case actionTypes.GET_FIVE_DAYS_FAILED:
@@ -269,6 +270,11 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				favorites: action.payload,
+			};
+		case actionTypes.SET_DEGREES:
+			return {
+				...state,
+				degrees: action.payload,
 			};
 		default:
 			return state;
