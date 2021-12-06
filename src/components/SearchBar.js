@@ -5,7 +5,7 @@ import { getWeather } from "../store/actions/weather";
 import { getFiveDays } from "../store/actions/fiveDays";
 import TextField from "@mui/material/TextField";
 
-const SearchBar = () => {
+const SearchBar = (props) => {
 	const [text, setText] = useState(``);
 	const dispatch = useDispatch();
 	const loading = useSelector(({ loading }) => loading);
@@ -13,14 +13,15 @@ const SearchBar = () => {
 
 	const updateStore = () => {
 		dispatch(getData(text));
+		props.changeUpdate();
 	};
 
-	// useEffect(() => {
-	// 	if (!loading) {
-	// 		dispatch(getWeather(data.Key));
-	// 		dispatch(getFiveDays(data.Key));
-	// 	}
-	// }, [data, loading]);
+	useEffect(() => {
+		if (!loading && data?.Key) {
+			dispatch(getWeather(data.Key));
+			dispatch(getFiveDays(data.Key));
+		}
+	}, [data, loading]);
 
 	const onChange = ({ target }) => {
 		setText(target.value);

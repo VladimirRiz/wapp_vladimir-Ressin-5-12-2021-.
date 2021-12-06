@@ -1,6 +1,8 @@
 export const GET_DATA = "GET_DATA";
 export const SET_DATA = "SET_DATA";
 export const SET_LOADING = "SET_LOADING";
+export const SET_LOADING_FIVE_DAYS = "SET_LOADING_FIVE_DAYS";
+export const SET_LOADING_WEATHER = "SET_LOADING_WEATHER";
 export const GET_DATA_FAILED = "GET_DATA_FAILED";
 export const GET_WEATHER = "GET_WEATHER";
 export const SET_WEATHER = "SET_WEATHER";
@@ -10,3 +12,4 @@ export const SET_FIVE_DAYS = "SET_FIVE_DAYS";
 export const GET_FIVE_DAYS_FAILED = "GET_FIVE_DAYS_FAILED";
 export const SET_FAVORITE = "SET_FAVORITE";
 export const SET_DEGREES = "SET_DEGREES";
+export const API = "0sc7dAIqhJCXuNQkiGIBYyiz18RAmZ7D";

@@ -14,6 +14,7 @@ const Favorites = (props) => {
 	const updateStore = (name) => {
 		// console.log(name);
 		dispatch(getData(name));
+		props.changeUpdate();
 		navigate("/");
 	};
 

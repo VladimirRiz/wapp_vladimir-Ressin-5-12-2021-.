@@ -11,8 +11,8 @@ export const setFiveDays = (fiveDays) => {
 
 const setLoading = (loading) => {
 	return {
-		type: actionTypes.SET_LOADING,
-		loading: loading,
+		type: actionTypes.SET_LOADING_FIVE_DAYS,
+		loadingfiveDays: loading,
 	};
 };
 
@@ -26,12 +26,11 @@ export const getFiveDaysFailed = () => {
 export const getFiveDays = (id) => {
 	return async (dispatch) => {
 		try {
-			// dispatch(setLoading(true));
+			dispatch(setLoading(true));
 			const res = await axios.get(
-				`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${id}?apikey=azYBzin5Frk9Kczc28FpVA53Hit97vRI`
+				`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${id}?apikey=${actionTypes.API}`
 			);
-			console.log("HERERRERE", res);
-			// dispatch(setLoading(false));
+			dispatch(setLoading(false));
 			dispatch(setFiveDays(res.data));
 		} catch (err) {
 			dispatch(setLoading(false));

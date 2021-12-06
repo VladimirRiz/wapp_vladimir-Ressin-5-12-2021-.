@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setFavorites } from "../../store/actions/favorites";
 import { Favorite } from "@material-ui/icons";
@@ -8,7 +8,14 @@ import FiveDays from "./FiveDays";
 import "./main.scss";
 import SearchBar from "../SearchBar";
 
-const Main = ({ weatherIcon, city, wText, temperature, fiveDays }) => {
+const Main = ({
+	changeUpdate,
+	weatherIcon,
+	city,
+	wText,
+	temperature,
+	fiveDays,
+}) => {
 	const [fav, setFav] = useState();
 	const [isFav, setIsFav] = useState(false);
 	const [w, setW] = useState(temperature);
@@ -17,9 +24,14 @@ const Main = ({ weatherIcon, city, wText, temperature, fiveDays }) => {
 	const [unit, setUnit] = useState();
 	const dispatch = useDispatch();
 	const favorites = useSelector(({ favorites }) => favorites);
-	const loading = useSelector(({ loading }) => loading);
+	const state = useSelector((state) => state);
 	const degrees = useSelector(({ degrees }) => degrees);
 	const error = useSelector(({ error }) => error);
+
+	const isLoading = useMemo(
+		() => state.loading || state.loadingWeather || state.loadingfiveDays,
+		[state.loading, state.loadingWeather, state.loadingfiveDays]
+	);
 
 	useEffect(() => {
 		setFav(favorites);
@@ -31,7 +43,7 @@ const Main = ({ weatherIcon, city, wText, temperature, fiveDays }) => {
 	useEffect(() => {
 		setW(temperature);
 		setF(fiveDays);
-	}, [temperature, fiveDays]);
+	}, [temperature, fiveDays, isLoading]);
 
 	useEffect(() => {
 		if (degrees === "F") {
@@ -70,7 +82,7 @@ const Main = ({ weatherIcon, city, wText, temperature, fiveDays }) => {
 	return (
 		<div className="main">
 			<div className="wrapper-upper">
-				<SearchBar />
+				<SearchBar changeUpdate={changeUpdate} />
 				<Button
 					variant="outlined"
 					onClick={changeTheme}
@@ -81,37 +93,41 @@ const Main = ({ weatherIcon, city, wText, temperature, fiveDays }) => {
 			</div>
 			<div className="wrapper">
 				{!error ? (
-					!loading ? (
-						<>
-							<section className="section-first">
-								<div className="left">
-									<img
-										className="img"
-										src={`https://www.accuweather.com/images/weathericons/7.svg`}
-										alt="weather Icon"
-									/>
-									<div>
-										<h1>{city?.LocalizedName}</h1>
-										<p>
-											{value}&deg;
-											<small>{unit}</small>
-										</p>
+					!isLoading ? (
+						city ? (
+							<>
+								<section className="section-first">
+									<div className="left">
+										<img
+											className="img"
+											src={`https://www.accuweather.com/images/weathericons/${weatherIcon}.svg`}
+											alt="weather Icon"
+										/>
+										<div>
+											<h1>{city?.LocalizedName}</h1>
+											<p>
+												{value}&deg;
+												<small>{unit}</small>
+											</p>
+										</div>
 									</div>
-								</div>
-								<div className="fav-wrapper">
-									<Favorite className={isFav ? "fav-icon" : ""} />
-									<Button onClick={addToFavorite} className="favoriteBtn">
-										Add to favorite
-									</Button>
-								</div>
-							</section>
-							<section className="section-second">
-								<h3>{wText}</h3>
-							</section>
-							<section className="section-third">
-								<FiveDays arr={f} />
-							</section>
-						</>
+									<div className="fav-wrapper">
+										<Favorite className={isFav ? "fav-icon" : ""} />
+										<Button onClick={addToFavorite} className="favoriteBtn">
+											Add to favorite
+										</Button>
+									</div>
+								</section>
+								<section className="section-second">
+									<h3>{wText}</h3>
+								</section>
+								<section className="section-third">
+									<FiveDays arr={f} />
+								</section>
+							</>
+						) : (
+							"No data found"
+						)
 					) : (
 						"Loading..."
 					)

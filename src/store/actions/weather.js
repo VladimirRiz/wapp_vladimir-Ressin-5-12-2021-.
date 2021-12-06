@@ -11,8 +11,8 @@ export const setWeather = (weather) => {
 
 const setLoading = (loading) => {
 	return {
-		type: actionTypes.SET_LOADING,
-		loading: loading,
+		type: actionTypes.SET_LOADING_WEATHER,
+		loadingWeather: loading,
 	};
 };
 
@@ -26,11 +26,11 @@ export const getWeatherFailed = () => {
 export const getWeather = (id) => {
 	return async (dispatch) => {
 		try {
-			// dispatch(setLoading(true));
+			dispatch(setLoading(true));
 			const res = await axios.get(
-				`http://dataservice.accuweather.com/currentconditions/v1/${id}?apikey=azYBzin5Frk9Kczc28FpVA53Hit97vRI`
+				`http://dataservice.accuweather.com/currentconditions/v1/${id}?apikey=${actionTypes.API}`
 			);
-			// dispatch(setLoading(false));
+			dispatch(setLoading(false));
 			dispatch(setWeather(res.data));
 		} catch (err) {
 			dispatch(setLoading(false));
