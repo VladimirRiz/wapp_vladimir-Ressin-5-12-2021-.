@@ -20,6 +20,7 @@ const Header = () => {
 				value={degrees}
 				exclusive
 				onChange={handleChange}
+				className="switcher"
 			>
 				<ToggleButton value="C">C</ToggleButton>
 				<ToggleButton value="F">F</ToggleButton>

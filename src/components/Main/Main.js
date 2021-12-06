@@ -71,7 +71,11 @@ const Main = ({ weatherIcon, city, wText, temperature, fiveDays }) => {
 		<div className="main">
 			<div className="wrapper-upper">
 				<SearchBar />
-				<Button variant="outlined" onClick={changeTheme}>
+				<Button
+					variant="outlined"
+					onClick={changeTheme}
+					className="changeThemeBtn"
+				>
 					Change Theme
 				</Button>
 			</div>
@@ -96,7 +100,9 @@ const Main = ({ weatherIcon, city, wText, temperature, fiveDays }) => {
 								</div>
 								<div className="fav-wrapper">
 									<Favorite className={isFav ? "fav-icon" : ""} />
-									<Button onClick={addToFavorite}>Add to favorite</Button>
+									<Button onClick={addToFavorite} className="favoriteBtn">
+										Add to favorite
+									</Button>
 								</div>
 							</section>
 							<section className="section-second">

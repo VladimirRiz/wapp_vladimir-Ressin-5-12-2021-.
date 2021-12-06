@@ -34,6 +34,9 @@ const SearchBar = () => {
 					updateStore();
 				}
 			}}
+			InputProps={{
+				className: "search",
+			}}
 		/>
 	);
 };
