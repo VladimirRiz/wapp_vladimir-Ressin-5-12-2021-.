@@ -13,21 +13,35 @@ const Main = ({ weatherIcon, city, wText, temperature, fiveDays }) => {
 	const [isFav, setIsFav] = useState(false);
 	const [w, setW] = useState(temperature);
 	const [f, setF] = useState(fiveDays);
+	const [value, setValue] = useState();
+	const [unit, setUnit] = useState();
 	const dispatch = useDispatch();
 	const favorites = useSelector(({ favorites }) => favorites);
 	const loading = useSelector(({ loading }) => loading);
+	const degrees = useSelector(({ degrees }) => degrees);
+	const error = useSelector(({ error }) => error);
 
 	useEffect(() => {
 		setFav(favorites);
 		if (fav?.some((f) => f.city === city?.LocalizedName)) {
 			setIsFav(true);
-		}
+		} else setIsFav(false);
 	}, [favorites, fav, city]);
 
 	useEffect(() => {
 		setW(temperature);
 		setF(fiveDays);
 	}, [temperature, fiveDays]);
+
+	useEffect(() => {
+		if (degrees === "F") {
+			setValue(w?.Imperial?.Value);
+			setUnit(w?.Imperial?.Unit);
+		} else {
+			setValue(w?.Metric?.Value);
+			setUnit(w?.Metric?.Unit);
+		}
+	}, [degrees, w]);
 
 	const addToFavorite = () => {
 		if (fav.some((f) => f.city === city?.LocalizedName)) {
@@ -52,38 +66,44 @@ const Main = ({ weatherIcon, city, wText, temperature, fiveDays }) => {
 		<div className="main">
 			<SearchBar />
 
-			{!loading ? (
-				<div className="wrapper">
-					<section className="section-first">
-						<div className="left">
-							<img
-								className="img"
-								src={`https://www.accuweather.com/images/weathericons/7.svg`}
-								alt="weather Icon"
-							/>
-							<div>
-								<h1>{city?.LocalizedName}</h1>
-								<p>
-									{w?.Metric?.Value}&deg;
-									<small>{w?.Metric?.Unit}</small>
-								</p>
-							</div>
-						</div>
-						<div className="fav-wrapper">
-							<Favorite className={isFav ? "fav-icon" : ""} />
-							<Button onClick={addToFavorite}>Add to favorite</Button>
-						</div>
-					</section>
-					<section className="section-second">
-						<h3>{wText}</h3>
-					</section>
-					<section className="section-third">
-						<FiveDays arr={f} />
-					</section>
-				</div>
-			) : (
-				"Loading..."
-			)}
+			<div className="wrapper">
+				{!error ? (
+					!loading ? (
+						<>
+							<section className="section-first">
+								<div className="left">
+									<img
+										className="img"
+										src={`https://www.accuweather.com/images/weathericons/7.svg`}
+										alt="weather Icon"
+									/>
+									<div>
+										<h1>{city?.LocalizedName}</h1>
+										<p>
+											{value}&deg;
+											<small>{unit}</small>
+										</p>
+									</div>
+								</div>
+								<div className="fav-wrapper">
+									<Favorite className={isFav ? "fav-icon" : ""} />
+									<Button onClick={addToFavorite}>Add to favorite</Button>
+								</div>
+							</section>
+							<section className="section-second">
+								<h3>{wText}</h3>
+							</section>
+							<section className="section-third">
+								<FiveDays arr={f} />
+							</section>
+						</>
+					) : (
+						"Loading..."
+					)
+				) : (
+					"Sorry, some error happened"
+				)}
+			</div>
 		</div>
 	);
 };

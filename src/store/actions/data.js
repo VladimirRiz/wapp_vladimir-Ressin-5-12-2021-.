@@ -28,7 +28,7 @@ export const getData = (city) => {
 		try {
 			dispatch(setLoading(true));
 			const res = await axios.get(
-				`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=68w4it9WucrjXCWCs5TApU3PtQNOf66n&q=${city}`
+				`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=azYBzin5Frk9Kczc28FpVA53Hit97vRI&q=${city}`
 			);
 			dispatch(setLoading(false));
 			dispatch(setData(res.data[0]));

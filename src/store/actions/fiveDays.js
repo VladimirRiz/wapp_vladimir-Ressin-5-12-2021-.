@@ -28,7 +28,7 @@ export const getFiveDays = (id) => {
 		try {
 			// dispatch(setLoading(true));
 			const res = await axios.get(
-				`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${id}?apikey=68w4it9WucrjXCWCs5TApU3PtQNOf66n`
+				`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${id}?apikey=azYBzin5Frk9Kczc28FpVA53Hit97vRI`
 			);
 			console.log("HERERRERE", res);
 			// dispatch(setLoading(false));

@@ -28,7 +28,7 @@ export const getWeather = (id) => {
 		try {
 			// dispatch(setLoading(true));
 			const res = await axios.get(
-				`http://dataservice.accuweather.com/currentconditions/v1/${id}?apikey=68w4it9WucrjXCWCs5TApU3PtQNOf66n`
+				`http://dataservice.accuweather.com/currentconditions/v1/${id}?apikey=azYBzin5Frk9Kczc28FpVA53Hit97vRI`
 			);
 			// dispatch(setLoading(false));
 			dispatch(setWeather(res.data));

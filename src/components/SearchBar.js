@@ -22,8 +22,6 @@ const SearchBar = () => {
 	// 	}
 	// }, [data, loading]);
 
-	// const update = async () => {};
-
 	const onChange = ({ target }) => {
 		setText(target.value);
 	};
@@ -34,7 +32,6 @@ const SearchBar = () => {
 			onKeyDown={(e) => {
 				if (e.key === "Enter") {
 					updateStore();
-					// update();
 				}
 			}}
 		/>

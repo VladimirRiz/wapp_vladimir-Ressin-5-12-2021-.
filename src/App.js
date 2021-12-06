@@ -1,22 +1,25 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import Header from "./components/Header/index";
+import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { getWeather } from "./store/actions/weather";
+import { getFiveDays } from "./store/actions/fiveDays";
+import Header from "./components/Header/index";
 import Main from "./components/Main/Main";
-import Favorites from "./components/Favorites";
+import Favorites from "./components/Favorites/Favorites";
 
 function App() {
-	// const [data, setData] = useState();
-
-	// const [weather, setWeather] = useState();
-
-	// const [fiveDays, set5days] = useState();
-
 	const data = useSelector(({ data }) => data);
 	const weather = useSelector(({ weather }) => weather);
 	const fiveDays = useSelector(({ fiveDays }) => fiveDays);
+	const loading = useSelector(({ loading }) => loading);
+	const dispatch = useDispatch();
 
-	console.log(weather[0]);
+	useEffect(() => {
+		if (!loading && data.Key) {
+			dispatch(getWeather(data.Key));
+			dispatch(getFiveDays(data.Key));
+		}
+	}, [data, loading]);
 
 	useEffect(() => {
 		// const load = async () => {
