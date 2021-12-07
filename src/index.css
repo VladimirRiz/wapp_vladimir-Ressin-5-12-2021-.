@@ -58,5 +58,8 @@ body.dark .nav_link.active {
 	color: #b2b2b2;
 }
 
-.loading {
+@media only screen and (max-width: 660px) {
+	body.dark .header_wrapper {
+		background-color: rgb(33, 33, 33);
+	}
 }

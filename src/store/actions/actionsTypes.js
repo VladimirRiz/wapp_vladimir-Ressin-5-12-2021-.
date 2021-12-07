@@ -6,4 +6,5 @@ export const SET_FAVORITE = "SET_FAVORITE";
 export const SET_DEGREES = "SET_DEGREES";
 export const SET_UPDATE = "SET_UPDATE";
 export const SET_NAME = "SET_NAME";
-export const API = "N1Khy2A1fhQLXyiATqkcsdj4Eld8KsD8";
+export const API = "GAFFDa4xymAQfyTKUT7UHvKoiWXaqILn";
+// export const API = "GAFFDa4xymAQfyTKUT7UHvKoissWXaqILn";
