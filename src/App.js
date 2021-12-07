@@ -1,75 +1,64 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { getData } from "./store/actions/data";
-import { getWeather } from "./store/actions/weather";
-import { getFiveDays } from "./store/actions/fiveDays";
+import { getData, setUpdate } from "./store/actions/data";
 import Header from "./components/Header/index";
 import Main from "./components/Main/Main";
 import Favorites from "./components/Favorites/Favorites";
 
 function App() {
-	const [update, setUpdate] = useState(false);
-	const [fiveDayss, setFiveDays] = useState();
-	const [w, setWeather] = useState([]);
-	const data = useSelector(({ data }) => data);
-	const weather = useSelector(({ weather }) => weather);
-	const fiveDays = useSelector(({ fiveDays }) => fiveDays);
+	const [data, setData] = useState({});
+	const name = useRef("Tel-Aviv");
+	const dataStore = useSelector(({ data }) => data);
+	const update = useSelector(({ update }) => update);
 	const dispatch = useDispatch();
-
-	useEffect(() => {
-		setFiveDays(fiveDays);
-	}, [fiveDays]);
-	useEffect(() => {
-		setWeather(weather);
-	}, [weather]);
-
-	useEffect(() => {
-		console.log(data[0]?.Key, update);
-		if (data[0]?.Key && update) {
-			console.log("here");
-			dispatch(getWeather(data[0].Key));
-			dispatch(getFiveDays(data[0].Key));
-			setUpdate(false);
-		}
-	}, [data.Key, update, dispatch]);
-
-	const changeUpdate = () => setUpdate(true);
+	const nameStore = useSelector(({ name }) => name);
 
 	useEffect(() => {
 		const load = async () => {
-			dispatch(getData("Tel-Aviv"));
+			dispatch(getData(name.current));
 		};
-		if (!data.length) {
+		if (!Object.keys(data).length) {
 			load();
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	// console.log(data);
+	useEffect(() => {
+		if (update && nameStore.length) {
+			dispatch(getData(nameStore));
+			dispatch(setUpdate(false));
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [nameStore, update]);
+
+	useEffect(() => {
+		setData(dataStore);
+	}, [dataStore]);
+
 	return (
 		<BrowserRouter className="App">
 			<Header />
 			<div className="container">
-				<Routes>
-					<Route
-						element={
-							<Main
-								changeUpdate={changeUpdate}
-								weatherIcon={w[0]?.WeatherIcon}
-								city={data[0]?.AdministrativeArea}
-								wText={w[0]?.WeatherText}
-								temperature={w[0]?.Temperature}
-								fiveDays={fiveDayss?.DailyForecasts}
-							/>
-						}
-						path="/"
-						exact
-					/>
-					<Route
-						element={<Favorites changeUpdate={changeUpdate} />}
-						path="/favorites"
-					/>
-				</Routes>
+				{Object.keys(data).length ? (
+					<Routes>
+						<Route
+							element={
+								<Main
+									// changeUpdate={changeUpdate}
+									weatherIcon={data?.weather[0]?.WeatherIcon}
+									city={data?.data[0]?.LocalizedName}
+									wText={data?.weather[0]?.WeatherText}
+									temperature={data?.weather[0]?.Temperature}
+									fiveDays={data?.fiveDays?.DailyForecasts}
+								/>
+							}
+							path="/"
+							exact
+						/>
+						<Route element={<Favorites />} path="/favorites" />
+					</Routes>
+				) : null}
 			</div>
 		</BrowserRouter>
 	);

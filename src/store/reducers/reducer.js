@@ -2,14 +2,12 @@ import * as actionTypes from "../actions/actionsTypes";
 
 const initialState = {
 	data: [],
-	weather: [],
-	fiveDays: {},
 	loading: false,
-	loadingWeather: false,
-	loadingfiveDays: false,
 	error: false,
 	favorites: [],
 	degrees: "C",
+	update: false,
+	name: "",
 };
 
 const reducer = (state = initialState, action) => {
@@ -17,7 +15,7 @@ const reducer = (state = initialState, action) => {
 		case actionTypes.SET_DATA:
 			return {
 				...state,
-				data: [action.data],
+				data: action.data,
 				error: false,
 			};
 		case actionTypes.GET_DATA_FAILED:
@@ -30,38 +28,6 @@ const reducer = (state = initialState, action) => {
 				...state,
 				loading: action.loading,
 			};
-		case actionTypes.SET_LOADING_FIVE_DAYS:
-			return {
-				...state,
-				loadingfiveDays: action.loadingfiveDays,
-			};
-		case actionTypes.SET_LOADING_WEATHER:
-			return {
-				...state,
-				loadingWeather: action.loadingWeather,
-			};
-		case actionTypes.SET_WEATHER:
-			return {
-				...state,
-				weather: action.weather,
-				error: false,
-			};
-		case actionTypes.GET_WEATHER_FAILED:
-			return {
-				...state,
-				error: true,
-			};
-		case actionTypes.SET_FIVE_DAYS:
-			return {
-				...state,
-				fiveDays: action.fiveDays,
-				error: false,
-			};
-		case actionTypes.GET_FIVE_DAYS_FAILED:
-			return {
-				...state,
-				error: true,
-			};
 		case actionTypes.SET_FAVORITE:
 			return {
 				...state,
@@ -71,6 +37,16 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				degrees: action.payload,
+			};
+		case actionTypes.SET_UPDATE:
+			return {
+				...state,
+				update: action.payload,
+			};
+		case actionTypes.SET_NAME:
+			return {
+				...state,
+				name: action.payload,
 			};
 		default:
 			return state;

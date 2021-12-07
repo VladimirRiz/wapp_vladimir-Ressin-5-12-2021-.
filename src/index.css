@@ -57,3 +57,6 @@ body.dark .nav_link {
 body.dark .nav_link.active {
 	color: #b2b2b2;
 }
+
+.loading {
+}

@@ -1,27 +1,15 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { getData } from "../store/actions/data";
-import { getWeather } from "../store/actions/weather";
-import { getFiveDays } from "../store/actions/fiveDays";
 import TextField from "@mui/material/TextField";
 
 const SearchBar = (props) => {
 	const [text, setText] = useState(``);
 	const dispatch = useDispatch();
-	const loading = useSelector(({ loading }) => loading);
-	const data = useSelector(({ data }) => data[0]);
 
 	const updateStore = () => {
 		dispatch(getData(text));
-		props.changeUpdate();
 	};
-
-	useEffect(() => {
-		if (!loading && data?.Key) {
-			dispatch(getWeather(data.Key));
-			dispatch(getFiveDays(data.Key));
-		}
-	}, [data, loading]);
 
 	const onChange = ({ target }) => {
 		setText(target.value);

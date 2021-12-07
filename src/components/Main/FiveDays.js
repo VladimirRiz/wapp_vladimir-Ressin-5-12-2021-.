@@ -14,8 +14,8 @@ const FiveDays = ({ arr }) => {
 						<h3>{date.slice(0, 3)}</h3>
 						<p>
 							{degrees === "F"
-								? data.Temperature.Minimum.Value
-								: fahrenheitToCelsius(data.Temperature.Minimum.Value)}
+								? data.Temperature.Maximum.Value
+								: fahrenheitToCelsius(data.Temperature.Maximum.Value)}
 							&deg;
 							<small>
 								{degrees}

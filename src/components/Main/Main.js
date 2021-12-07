@@ -35,7 +35,7 @@ const Main = ({
 
 	useEffect(() => {
 		setFav(favorites);
-		if (fav?.some((f) => f.city === city?.LocalizedName)) {
+		if (fav?.some((f) => f.city === city)) {
 			setIsFav(true);
 		} else setIsFav(false);
 	}, [favorites, fav, city]);
@@ -56,14 +56,14 @@ const Main = ({
 	}, [degrees, w]);
 
 	const addToFavorite = () => {
-		if (fav.some((f) => f.city === city?.LocalizedName)) {
-			const index = fav.findIndex((f) => f.city === city?.LocalizedName);
+		if (fav.some((f) => f.city === city)) {
+			const index = fav.findIndex((f) => f.city === city);
 			fav.splice(index, 1);
 			setIsFav(false);
 		} else {
 			setIsFav(true);
 			fav.push({
-				city: city?.LocalizedName,
+				city: city,
 				temperature: {
 					value: w.Metric.Value,
 					unit: w.Metric.Unit,
@@ -98,13 +98,15 @@ const Main = ({
 							<>
 								<section className="section-first">
 									<div className="left">
-										<img
-											className="img"
-											src={`https://www.accuweather.com/images/weathericons/${weatherIcon}.svg`}
-											alt="weather Icon"
-										/>
+										{weatherIcon ? (
+											<img
+												className="img"
+												src={`https://www.accuweather.com/images/weathericons/${weatherIcon}.svg`}
+												alt="weather Icon"
+											/>
+										) : null}
 										<div>
-											<h1>{city?.LocalizedName}</h1>
+											<h1>{city}</h1>
 											<p>
 												{value}&deg;
 												<small>{unit}</small>
